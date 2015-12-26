@@ -1,0 +1,80 @@
+{% extends "profile_base.html" %}
+
+{% block prof %}
+
+  {% load staticfiles %}
+  {%load get_range%}
+  {%load sub%}
+
+
+
+
+          <div class="row">
+
+            <div class="col s12">
+              <div class="col s12 white z-depth-1">
+
+                <div class="row">
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/about/"class="blue-text btn-flat"><span>About</span></a>
+                  </div>
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/"class="grey-text btn-flat"><span>Feed</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/followers/"class="grey-text btn-flat"><span>Followers</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/following/"class="grey-text btn-flat"><span>Following</span></a>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+            <div id="test1" class="col s12">
+              <div class="row">
+                <div class="col s4 ">
+
+
+                  <div class="card-panel ">
+                    <h5>Basic information</h5>
+                    <ul >
+                      <li><b>Gender:</b> Male</li>
+                      <li><b>Date of birth:</b> 02 feb 1994</li>
+                      <li><b>Location:</b>Mexico</li>
+                      <li><b>Website:</b><a href="#">http://www.link.com</a></li>
+                      <li><b>Social Media:</b></li>
+                      <li><a href="#">Facebook</a></li>
+                      <li><a href="#">email</a></li>
+                      <li  class="disabled"><a href="#">youtube</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col s8 ">
+                  <div class="card-panel ">
+                    <h5>Bio</h5>
+                    <p>My bio info goes here</p>
+                  </div>
+                  <div class="card-panel ">
+                    <h5>About me</h5>
+
+                  </div>
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+
+
+{% endblock%}

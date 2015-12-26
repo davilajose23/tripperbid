@@ -1,0 +1,80 @@
+{% extends "profile_base.html" %}
+
+{% block prof %}
+
+  {% load staticfiles %}
+  {%load get_range%}
+  {%load sub%}
+
+
+
+          <div class="row">
+
+            <div class="col s12">
+              <div class="col s12 white z-depth-1">
+
+                <div class="row">
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/about/"class="grey-text btn-flat"><span>About</span></a>
+                  </div>
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/"class="blue-text btn-flat"><span>Feed</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/followers/"class="grey-text btn-flat"><span>Followers</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/following/"class="grey-text btn-flat"><span>Following</span></a>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+            <div id="test2" class="col s12">
+              <div class="row">
+                <div class="col s6 ">
+
+
+                  <div class="card-panel ">
+                    <h5>Titulo post</h5>
+                    <img class="responsive-img"  src="{% static 'trips/img/foto.jpg'%}"
+                    >
+                    <p>Hola aqui bla bla bla</p>
+                  </div>
+                  <div class="card-panel ">
+                    <h5>Titulo post</h5>
+                    Hola aqui bla bla bla
+                  </div>
+                </div>
+
+                <div class="col s6 ">
+                  <div class="card-panel ">
+                    <h5>Titulo post</h5>
+                    Hola aqui bla bla bla
+                  </div>
+                  <div class="card-panel ">
+                    <h5>Titulo post</h5>
+                    Hola aqui bla bla bla
+                  </div>
+                  <div class="card-panel ">
+                    <h5>Titulo post</h5>
+                    Hola aqui bla bla bla
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+
+
+          </div>
+
+
+
+
+{% endblock%}

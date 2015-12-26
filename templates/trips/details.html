@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% load staticfiles %}
+  {%load get_range%}
+  {%load sub%}
+
+  <div class="row container">
+
+      
+
+      <div class="col s12  ">
+        <!-- Teal page content  -->
+
+
+
+          <div class="row">
+          {%if subasta%}
+            <div class="col s12 ">
+              <div class="card ">
+                <div class="card-image">
+                  <img src= "{% static 'trips/img/proyectos/seaturtle2.png'%}">
+                  <span class="card-title">{{subasta.nombre}}</span>
+                </div>
+                <div class="card-content">
+
+                  <div class="row">
+
+                    <div class="col s12 m3 center">
+                      <!-- Promo Content 1 goes here -->
+                      <h5>{{cantidad}}</h5>
+                      <p>trippers in this found</p>
+                    </div>
+                    <div class="col s12  m3 center">
+                      <!-- Promo Content 2 goes here -->
+                      <h5>${{recaudado}}</h5>
+                      <p>Money collected by this found</p>
+                    </div>
+                    <div class="col s12 m3  center">
+                      <!-- Promo Content 3 goes here -->
+                      <h5>${{subasta.precio}}</h5>
+                      <p>Entry donation</p>
+                    </div>
+                    <div class="col s12 m3  center">
+                      <!-- Promo Content 3 goes here -->
+                      <h5>$100</h5>
+                      <p>tripper return</p>
+                    </div>
+
+                  </div>
+
+
+
+                </div>
+                <div class="card-action">
+                <a href="#">Learn more</a>
+                {%if user.is_authenticated%}
+                  {%if participa%}
+                  <a class="waves-effect btn white-text right waves-light "
+                  onclick="Materialize.toast('You have already applied', 3000,'rounded')">Apply<i class="material-icons right">send</i></a>
+                  {%else%}
+                  <a class="waves-effect white-text right waves-light btn modal-trigger" href="#modal1">Apply
+                     <i class="material-icons right">send</i></a>
+                  {%endif%}
+                {%else%}
+                  <a class="waves-effect white-text right waves-light btn modal-trigger" href="/login/">Apply
+                   <i class="material-icons right">send</i></a>
+                {%endif%}
+
+                </div>
+
+              </div>
+            </div>
+            {%endif%}
+
+            {%if participa%}
+
+            <div class="col s3 hide-on-small-and-down">
+              <br>
+            </div>
+            <div class="col s12 m6 card blue-text">
+
+            <h5 class="center">Place in the line</h5>
+
+            <table class="striped">
+              <thead>
+                <tr>
+
+                </tr>
+              </thead>
+
+              <tbody>
+
+
+
+
+              {%for up in usuariopiramide%}
+
+                {%if up.piramide == piramide_usuario%}
+
+                  {%if up.usuario.user == user%}
+                  <tr>
+
+                    <td>{{up.nivel}}</td>
+                    <td>
+                      <a href="/profile/{{up.usuario.id}}" class=" tooltipped" data-position="top" data-delay="50" data-tooltip="{{up.usuario.first_name}} {{up.usuario.last_name}}">
+                        <div class="chip">
+                          <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                          you
+                        </div>
+                      </a>
+                    </td>
+                    <td><a href="/follow/{{up.usuario.id}}">follow</a></td>
+
+                   </tr>
+
+                  {%else%}
+
+                   <tr>
+
+                     <td>{{up.nivel}}</td>
+                     <td>
+                       <a href="/profile/{{up.usuario.id}}" class=" tooltipped" data-position="top" data-delay="50" data-tooltip="{{up.usuario.first_name}} {{up.usuario.last_name}}">
+                         <div class="chip">
+                           <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                           {{up.usuario.first_name}}
+                         </div>
+                        </a>
+                     </td>
+                     <td><a href="/follow/{{up.usuario.id}}">follow</a></td>
+
+                    </tr>
+
+                  {%endif%}
+
+
+                {%endif%}
+
+
+                {% for i in vacios|get_range %}
+                <!--
+                 <div class="chip">
+                   <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                   empty
+                 </div>
+-->
+
+                {%endfor%}
+
+
+
+
+            {%endfor%}
+
+
+                  </tbody>
+            </table>
+
+            </div>
+            {%endif%}
+
+
+          </div>
+
+
+
+
+
+
+      </div>
+
+  </div>
+
+{%if user.is_authenticated%}
+  <!-- Modal Structure -->
+ <div id="modal1" class="modal">
+   <div class="modal-content">
+
+     {%if not participa%}
+     <h5 class="center">Support Someone</h5>
+
+
+
+       {%if piramide%}
+       {%for p in piramide%}
+
+
+       <table class="striped">
+
+
+         <tbody>
+           <tr>
+
+           {%for up in usuariopiramide%}
+
+             {%if up.piramide == p and up.nivel == 1 %}
+
+
+            <td><a href="#">
+               <div class="chip">
+                <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                {{up.usuario.first_name}}
+              </div>
+              </a>
+            </td>
+
+             {%endif%}
+           {%endfor%}
+
+             <td><a href="p={{p.id}}">support</a></td>
+
+           </tr>
+
+
+         </tbody>
+       </table>
+       {%endfor%}
+       {%else%}
+        Be the first <a href="p=0">apply</a>
+       {%endif%}
+
+     {%endif%}
+
+   </div>
+   <div class="modal-footer">
+     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Not now</a>
+   </div>
+ </div>
+{%endif%}
+{% endblock%}

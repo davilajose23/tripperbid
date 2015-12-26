@@ -1,0 +1,77 @@
+{% extends "profile_base.html" %}
+
+{% block prof %}
+
+  {% load staticfiles %}
+  {%load get_range%}
+  {%load sub%}
+
+
+
+
+          <div class="row">
+
+            <div class="col s12">
+              <div class="col s12 white z-depth-1">
+
+                <div class="row">
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/about/"class="grey-text btn-flat"><span>About</span></a>
+                  </div>
+                  <div class="col s12 m3">
+                    <a href="/profile/{{usuario.id}}/"class="grey-text btn-flat"><span>Feed</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/followers/"class="grey-text btn-flat"><span>Followers</span></a>
+                  </div>
+                  <div class="col s12 m3 ">
+                    <a href="/profile/{{usuario.id}}/following/"class="blue-text btn-flat"><span>Following</span></a>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+            <div id="test4" class="col s12">
+
+              <div class="row">
+                {%if relaciones%}
+                {%for rel in relaciones%}
+                <div class="col s6 ">
+
+
+                    <div class="card-panel grey lighten-5 z-depth-1">
+                      <div class="row valign-wrapper">
+                        <div class="col s2">
+                          <img src="{{rel.followed.pp.url}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                        </div>
+                        <div class="col s10">
+
+                          <h5>{{rel.followed}}</h5>
+                          {%if not rel.followed == user.usuario%}
+
+                          <a href="/follow/{{rel.followed.id}}"class="waves-effect    blue  z-depth-1 white-text btn">Follow</a>
+                          {%endif%}
+                          <a href ="/profile/{{rel.followed.id}}"class="waves-effect    white  z-depth-1 black-text btn">View profile</a>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                </div>
+
+                {%endfor%}
+                {%endif%}
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+{% endblock%}

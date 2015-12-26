@@ -1,0 +1,86 @@
+    <!-- Header -->
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% load staticfiles %}
+
+
+
+
+  <div class="row container">
+
+<!--
+      <div class="col s3  hide-on-med-and-down">
+        
+
+        <div class="row ">
+          <div class="col card center s12 grey lighten-5  z-depth-1  " >
+          <br>
+            {% if user.is_authenticated %}
+            <img class="circle responsive-img"  src="{% static 'trips/img/foto.jpg'%}">
+            <h5>{{user.usuario.first_name}}</h5>
+
+            <ul>
+              <li><a href="#">trips points</a></li>
+              <li><a href="#">trips points</a></li>
+              <li><a href="#">trips points</a></li>
+            </ul>
+
+            {%else%}
+            <img class="circle responsive-img"  src="{% static 'trips/img/foto.jpg'%}">
+            <h5>Bienvenido</h5>
+
+
+            {%endif%}
+          </div>
+        </div>
+      </div>
+
+-->
+      <div class="col s12  ">
+        <!-- Teal page content  -->
+
+
+
+
+
+
+          <div class="row">
+
+          {%if subastas%}
+          {%for sub in subastas%}
+          
+            <div class="col s12 m6 l4  " >
+              <div class="card hoverable">
+                <div class="card-image">
+                  <img src="{% static 'trips/img/proyectos/seaturtle.jpg'%}">
+                  <span class="card-title">{{sub.nombre}}</span>
+                </div>
+                <div class="card-content">
+                  <p>{{sub.descripcion}}</p>
+                  <p>Precio: {{sub.precio}}</p>
+                </div>
+                <div class="card-action">
+                  <a href="/details/{{sub.id}}">Ver mas...</a>
+                </div>
+              </div>
+            </div>
+            
+            {%endfor%}
+            {%endif%}
+
+
+
+          </div>
+
+
+
+
+
+
+      </div>
+
+  </div>
+
+{% endblock%}

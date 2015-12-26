@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% load staticfiles %}
+  <div class="row">
+    <div class="col s12">
+    <br>
+
+     
+      {% if messages %}
+
+          {% for message in messages %}
+            <script>Materialize.toast({{message}}, 4000);
+             </script>
+             <h1>{{message}}</h1>
+          {% endfor %}
+
+      {% endif %}
+
+      <div class="card col s4 offset-s4 grey lighten-4">
+        <form class="col s12" action="{% url 'trips.views.Registro'%}" method="post">
+        {% csrf_token %}
+        <div class="row">
+
+          <br>
+          <div class="center">
+            <img class="circle responsive-img" src="{% static 'home/img/foto.jpg'%}">
+          </div>
+          <div class="input-field col s12">
+
+            <input id="icon_prefix" type="text" required class="validate" name="first_name">
+            <label for="icon_prefix">First Name</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="icon_prefix" name="last_name" type="text" required class="validate">
+            <label for="icon_prefix">Last Name</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="icon_prefix"name="email" type="email" required class="validate">
+            <label for="icon_prefix">Email</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="icon_prefix"name="password" type="password" required class="validate">
+            <label for="icon_prefix">Password</label>
+          </div>
+          <div class="input-field col s12">
+            <input type="date" name="birth" required class="datepicker">
+            <label for="icon_prefix">Birth</label>
+          </div>
+          <div class="input-field col s12">
+            <select name="gender">
+              <option value="" disabled selected>Select</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="other">Other</option>
+            </select>
+            <label>Gender</label>
+          </div>
+          <div class="col s12">
+            <p>By creating an account, I agree to our<a class="modal-trigger waves-effect waves-light " href="#modal1">Terms and Conditions</a></p>
+
+          </div>
+          <div class="input-field center col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">log in
+            <i class="material-icons right">send</i>
+            </button>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--  Modals-->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4 class="center">Terms and Conditions</h4>
+      <h5 class="center">Last revised on September 24th, 2015.</h5>
+      <p>The following describes the terms and conditions on which Tripperbid.com offers you access to our sites, services, applications and tools.</p>
+
+      <h5 class="center">Introduction</h5>
+      <p>
+      Welcome to Tripperbid.com. By using Tripperbid.com (including Tripperbid.com and its related sites, services, applications, and tools), you agree to the following terms and the general principles for the sites of our subsidiaries and international affiliates. These Terms and Conditions are effective upon acceptance for new users. You accept these Terms and Conditions by registering a Tripperbid.com account; accessing or using Tripperbid.com sites, services, applications, and tools; or as otherwise indicated on a specific site, service, application, or tool.</p>
+
+
+      <h5 class="center">Using Tripperbid.com</h5>
+      <p>
+      While using Tripperbid.com sites, services, applications, and tools, you will not:</p>
+      <ol>
+      <li>Violate any laws, third party rights or our policies;</li>
+      <li>Use our sites, services, applications, or tools if you are not able to form legally</li>
+      <li>Binding contracts or are temporarily or indefinitely suspended from using our sites, services, applications, or tools;</li>
+      <li>Circumvent or manipulate our fee structure, the billing process, or fees owed to Tripperbid.com;</li>
+      <li>Post false, inaccurate, misleading, defamatory, or libelous content;</li>
+      <li>Circumvent any Tripperbid.com policy or determinations about your account status such as temporary or indefinite suspensions or other account holds, limitations or restrictions;</li>
+      <li>Distribute or post spam, unsolicited or bulk electronic communications, chain letters, or pyramid schemes;</li>
+      <li>Distribute viruses or any other technologies that may harm Tripperbid.com, or the interests or property of Tripperbid.com users;</li>
+      <li>Impose an unreasonable load on our infrastructure or interfere with the proper working of Tripperbid.com;</li>
+      <li>Use any robot spider, scraper or other automated means to access Tripperbid.com and collect content for any purpose without our express written permission;</li>
+      <li>Copy, modify, or distribute rights or content from the Tripperbid.com sites, services, applications, or tools or Tripperbid.com copyrights and trademarks;</li>
+      <li>Commercialize any Tripperbid.com application or any information or software associated with such application;</li>
+      <li>Harvest or otherwise collect information about users, including email addresses, without their consent;</li>
+      <li>Bypass measures used to prevent or restrict access to Tripperbid.com;</li>
+      <li>Use someone else's account without his/her permission.</li>
+      </ol>
+      <p>
+      You are solely responsible for all information that you submit to Tripperbid.com and any consequences that may result from your post. We reserve the right at our discretion to refuse or delete content that we believe is inappropriate or breaches the above terms. We also reserve the right at our discretion to restrict a user's usage of the site either temporarily or permanently, or refuse a user's registration.</p>
+
+
+
+      <h5 class="center">Abusing Tripperbid.com</h5>
+      <p>
+      Tripperbid.com and its community of users (the "Community") work together to keep our sites, services, applications, and tools working properly and the Community safe. Please report problems, offensive content, and policy violations to us</p>
+      <p>
+      Without limiting other remedies, we may, in our sole discretion, limit, suspend, or terminate our services and user accounts, prohibit access to our sites, services, applications, and tools, and their content, delay or remove hosted content, and take technical and legal steps to keep users from using our sites, services, applications, or tools, if we think that they are creating problems or possible legal liabilities, infringing the intellectual property rights of third parties, or acting inconsistently with the letter or spirit of our policies (for example, and without limitation, circumventing temporary or permanent suspensions or harassing our employees or other users). We also reserve the right to cancel unconfirmed accounts or accounts that have been inactive for a period of months, or to modify or discontinue Tripperbid.com sites, services, applications, or tools.
+      </p>
+
+      <h5 class="center">Content</h5>
+      <p>
+      When providing us with content or posting content on Tripperbid.com sites, services, applications, and tools, you grant us a non-exclusive, worldwide, perpetual, irrevocable, royalty- free, sub-licensable (through multiple tiers) right to exercise any and all copyright, trademark, publicity, and database rights you have in the content, in any media known now or in the future.
+      </p>
+
+      <h5 class="center">Disclaimer of Warranties; Limitation of Liability</h5>
+      <p>
+      We try to keep Tripperbid.com and its sites, services, applications, and tools safe, secure, and functioning properly. You acknowledge that we cannot guarantee the continuous operation of or access to our sites, services, applications, or tools. You further acknowledge that operation of and access to our sites, services, applications, or tools may be interfered with as a result of technical issues or numerous factors outside of our control. Notification functionality and updates in Tripperbid.com sites, services, applications and tools may not occur in real time. Such functionality is subject to delays including, without limitation, delays, or latency due to your physical location or your wireless data service provider’s network. You agree that you are making use of our sites, services, applications, and tools at your own risk, and that they are being provided to you on an "AS IS" and "AS AVAILABLE" basis. Accordingly, to the extent permitted by applicable law, we exclude all express or implied warranties, terms and conditions including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+      <p>
+      In addition, to the extent permitted by applicable law, we are not liable, and you agree not to hold Tripperbid.com responsible, for any damages or losses (including, but not limited to, loss of money, goodwill or reputation, profits, or other intangible losses or any special, indirect, or consequential damages) resulting directly or indirectly from:
+      </p>
+      <ol>
+      <li>Your use of or your inability to use our sites, services, applications and tools;</li>
+      <li>Delays or disruptions in our sites, services, applications, or tools;</li>
+      <li>Viruses or other malicious software obtained by accessing our sites, services, applications, or tools or any site, services, applications, or tools linked to our sites, services, applications, or tools;</li>
+      <li>Glitches, bugs, errors, or inaccuracies of any kind in our sites, services, applications, and tools or in the information and graphics obtained from them;</li>
+      <li>Damage to your hardware device(s) or loss of data that results from the use of our sites, services, applications, and tools;</li>
+      <li>The content, actions, or inactions of third parties or sponsors;</li>
+      <li>A suspension or other action taken with respect to your account;</li>
+      <li>The duration or manner in which your projects appear in search result;</li>
+      <li>Tripperbid.com decision to end or remove your project(s);</li>
+      <li>Your need to modify practices, content, or behavior or your loss of or inability to do business, as a result of changes to these Terms and Conditions or our policies;</li>
+      <li>Tripperbid.com reserves the right to modify its policies and these Terms and Conditions at any time consistent with the provisions outlined herein.</li>
+      </ol>
+      <p>
+      Any guidance we provide in our sites, services, applications, or tools is solely informational and you may choose not to follow such guidance at any time. We do not warrant or guarantee that any particular results will be achieved from following guidance we provide (e.g. that your travel will attract funding and/or sponsors, etc).</p>
+
+
+      <h5 class="center">Indemnity</h5>
+
+      You will indemnify and hold us (and our affiliates and subsidiaries, and our and their respective officers, directors, employees, and agents) harmless from any claim or demand, including reasonable attorneys' fees, made by any third party due to or arising out of your breach of this Terms and Conditions, your improper use of Tripperbid.com sites, services, applications, or tools, and/or your violation of any law or the rights of a third party.
+
+
+
+      <h5 class="center">No Agency</h5>
+
+      No agency, partnership, joint venture, employee-employer, or franchiser-franchisee relationship is intended or created by this Terms and Conditions.
+
+
+
+      <h5 class="center">General</h5>
+
+      We have an absolute discretion to change the terms of these Terms and Conditions at any time. If we do so, we will post details of any changes on this site that will be effective forthwith. You agree to promptly inform us of any breach by you of the terms of these Terms and Conditions and of any conduct of another user that you think may be a breach of these Terms and Conditions, whether the conduct has ceased, is continuing, or may occur in the future.
+
+      <h5 class="center">Disclaimer and Waiver</h5>
+      <p>
+      You confirm that you have been informed, had time to consider and understand fully that the website Tripperbid.com ("Tripperbid") is merely an intermediate party who creates the opportunity for travellers/thrill seekers ("Traveller") such as yourself to engage with sponsors in order to make your travel and adventures a reality. Tripperbid in no way arranges any travel/expedition/adventures ("Expeditions") and is not involved in the Expedition beyond the introduction of the Traveller and sponsor to each other as facilitated on its website.</p>
+      <p>
+      You therefore hereby indemnify and hold harmless Tripperbid, its owners, shareholders, affiliated companies, employees, contractors and directors in full against any and all claims of whatsoever nature (whether direct, indirect, incidental, punitive or consequential ) and howsoever arising, including but not limited to claims in respect of bodily harm/injury, trauma, death, disability sustained; loss of income, expenses or property due to and/or in any way relating to you using the Tripperbid.com services (whether arising from negligence or any other cause) and/or participating in any Expedition and/or any other action taken or activity, training or otherwise, resulting from any introduction through using the Tripperbid.com website, whether directly or indirectly.</p>
+      <p>
+      This waiver shall be governed and construed in terms of the laws of the United Mexican States.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    </div>
+  </div>
+{% endblock%}

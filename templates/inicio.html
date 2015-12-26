@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>tripperbid</title>
+
+  <!-- CSS  -->
+  {% load staticfiles %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'home/css/materialize.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'home/css/style.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+
+<body >
+  <div class="navbar-fixed">
+
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo white-text"> tripperbid</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#" class="white-text">How it works</a></li> 
+        <li><a href="#" class="white-text">Sign up</a></li>
+        <li><a href="#" class="white-text">Log in</a></li>
+      </ul>
+
+      <ul class="side-nav blue-grey darken-2" id="nav-mobile" >
+        <li><a href="#" class="white-text">How it works</a></li> 
+        <li><a href="#" class="white-text">Sign up</a></li>
+        <li><a href="#" class="white-text">Log in</a></li>
+        <hr>
+        <li><a href="#">
+          <div class="row valign-wrapper">
+            <div class="col s3">
+              <img src="{% static 'home/img/foto.jpg'%}" alt="" class="circle responsive-img valign"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s8 white-text valign">
+              Jose Fernando
+            </div>
+          </div>
+        
+          </a>
+        </li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
