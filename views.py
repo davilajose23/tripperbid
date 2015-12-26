@@ -19,7 +19,7 @@ from .utils import generic_search
 
 def Index(request):
 
-	return ender(request,'trips/index.html')
+	return render(request,'trips/index.html')
 
 def Login(request):
 
