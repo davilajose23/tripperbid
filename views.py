@@ -16,6 +16,11 @@ from .forms import SettingsForm_gen
 from .models import Usuario, Subasta, Piramide, UsuarioPiramide, Follows, Ganador
 from .utils import generic_search
 
+
+def Index(request):
+
+	render(request,'trips/index.html')
+
 def Login(request):
 
 	next = request.GET.get('next', '/proyectos/')
