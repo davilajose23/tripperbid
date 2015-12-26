@@ -289,9 +289,9 @@ def Profile_following(request,prof_id):
 		relation = Follows.objects.filter(followed=usuario,follower=follower)
 
 		if relation.exists():
-			return render(request,'trips/Profile_following.html',{'usuario':usuario,'relaciones':relaciones,'follow':True})
+			return render(request,'trips/profile_following.html',{'usuario':usuario,'relaciones':relaciones,'follow':True})
 
-	return render(request,'trips/Profile_following.html',{'usuario':usuario,'relaciones':relaciones})
+	return render(request,'trips/profile_following.html',{'usuario':usuario,'relaciones':relaciones})
 
 
 QUERY="search-query"
