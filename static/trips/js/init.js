@@ -10,11 +10,7 @@
     $('.parallax').parallax();
     $('select').material_select();
 
-    var options = [
-    {selector: '#staggered-test', offset: 10, callback: 'Materialize.showStaggeredList("#staggered-test")' },
-    {selector: '#image-test', offset: 500, callback: 'Materialize.fadeInImage("#image-test")' } ];
 
-    Materialize.scrollFire(options);
 
   }); // end of document ready
   $('.datepicker').pickadate({
