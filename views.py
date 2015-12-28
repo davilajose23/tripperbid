@@ -61,12 +61,13 @@ def Registro(request):
         date_birth = request.POST['birth']
         gender  = request.POST['gender']
 
+        mailused = None
         try:
         	mailused = Usuario.objects.get(email=email)
         except Usuario.DoesNotExist:
-        	messages.add_message(request, messages.INFO, 'Ya existe un usuario con este email')
+        	print("usuario no existe")
 
-		if mailused is not None:
+		if mailused is None:
 			user = User.objects.create_user(username=email, email=email, password=password)
 			user.first_name = first_name
 			user.last_name = last_name
