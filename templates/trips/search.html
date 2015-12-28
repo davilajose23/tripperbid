@@ -57,22 +57,22 @@
           {%for o in objects%}
 
             {%if o.first_name%}
-            <div class="col s6 ">
+            <div class="col s12 m6 ">
 
 
                 <div class="card-panel grey lighten-5 z-depth-1">
                   <div class="row valign-wrapper">
-                    <div class="col s2">
+                    <div class="col s4 l3">
                       <img src="{{o.pp.url}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
                     </div>
-                    <div class="col s10">
+                    <div class="col s8 l9">
 
                       <h5>{{o.first_name}} {{o.last_name}}</h5>
                       {%if not o.follower == user.usuario%}
 
                       <a href="/follow/{{o.follower.id}}"class="waves-effect    blue  z-depth-1 white-text btn">Follow</a>
                       {%endif%}
-                      <a href ="/profile/{{o.follower.id}}"class="waves-effect    white  z-depth-1 black-text btn">View profile</a>
+                      <a href ="/profile/{{o.follower.id}}"class="waves-effect    white  z-depth-1 black-text btn">Profile</a>
 
                     </div>
                   </div>

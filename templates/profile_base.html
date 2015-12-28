@@ -14,7 +14,7 @@
         <!-- Teal page content  -->
         <div class="card small">
             <div class="card-image">
-              <img src="{% static 'trips/img/profile/background.jpg'%}">
+              <img src="{% static 'trips/img/profile/background.jpg'%}" class="activator">
               <span class="card-title " style="margin-top:30px;">
                 <br>{{usuario.first_name}} {{usuario.last_name}}</span>
 
@@ -32,7 +32,13 @@
 
 
             </figure>
-            <div class="card-content">
+            <div class" card-title activator">
+              <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal ">
+              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+      
               {%if usuario.user == user%}
               <a class="waves-effect  right  blue  z-depth-2 white-text btn">Edit Profile</a>
               {%else%}
@@ -42,6 +48,7 @@
                   <a  href="/follow/{{usuario.id}}"class="waves-effect  right  blue  z-depth-2 white-text btn">Follow</a>
                 {%endif%}
               {%endif%}
+
               <div class="col s6 m3 right ">
                 <!-- Promo Content 3 goes here -->
                 <h5>4</h5>

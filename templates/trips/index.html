@@ -16,22 +16,146 @@
 <body>
   <div class="navbar-fixed">
 
-  <nav class="white" role="navigation">
+    <nav class=" white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo "> tripperbid</a>
+
+
+      <a id="logo-container" href="/" class="brand-logo "> tripperbid </a>
+
+
+      {% if user.is_authenticated %}
+      <ul id="dropdown1" class="dropdown-content">
+        <li>
+
+        <a href="/profile/{{user.usuario.id}}">Profile</a></li>
+        <li><a href="/settings/">Settings</a></li>
+        <li class="divider"></li>
+        <li><a href="/logout/">log out</a></li>
+      </ul>
+      {%endif%}
       <ul class="right hide-on-med-and-down">
         <li><a href="#" class="">How it works</a></li>
-        <li><a href="trips/" class="">Trips</a></li>
-        <li><a href="signup/" class="">Sign up</a></li>
-        <li><a href="login/" class="">Log in</a></li>
+        <li><a href="/trips/" class="">Trips</a></li>
+        {% if user.is_authenticated %}
+
+
+        <img src="{{user.usuario.pp.url}}" alt="" class="circle responsive-img brand-logo" style="width:50px; margin:10px;:hover {background: yellow}"> <!-- notice the "circle" class -->
+
+        <li>
+        <br>
+        </li>
+        <li style="margin-left:70px;">
+
+
+
+        <a class="dropdown-button waves-effect waves-teal" href="#!" data-beloworigin="true" data-alignment="right" data-activates="dropdown1">{{user.usuario.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+
+
+        </li>
+        {%else%}
+        <li><a href="/signup/" class="">Sign up</a></li>
+        <li><a href="#loginModal" class="modal-trigger">Log in</a></li>
+
+        {%endif%}
+
+
+      </ul>
+      <ul class="right hide-on-med-and-down">
+
+          <form action="{% url 'trips.views.Search'%}" method="get">
+            {% csrf_token %}
+            <div class="input-field">
+              <input id="search-query" name="search-query" placeholder="search"type="search" required>
+              <label for="search" name="action"><i class="material-icons grey-text">search</i></label>
+              <i class="material-icons ">close</i>
+            </div>
+          </form>
+
       </ul>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+      <ul class="side-nav " id="nav-mobile" >
+
+
+        {% if user.is_authenticated %}
+
+           
+        <div class="row">
+          <div class="col s12">   
+                <img src="{% static 'trips/img/profile/background.jpg'%}" class="responsive-img">
+                
+
+          </div>
+          <div style="position:absolute;top:15px;">
+
+            <div class="col s4">
+              <img src="{{user.usuario.pp.url}}" alt="" class="circle responsive-img valign " style="margin: 10px;"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s8 valign white-text">
+              <h5 class="" >
+                  <br>{{user.usuario.first_name}} {{user.usuario.last_name}}</h5>
+            </div>
+          </div>
+        </div>
+       
+        
+        <li class="">
+
+          <form action="{% url 'trips.views.Search'%}" method="get">
+            {% csrf_token %}
+            <div class="input-field">
+              <input id="search-query" name="search-query" placeholder="search"type="search" required>
+              <label for="search" name="action"><i class="material-icons grey-text">search</i></label>
+              <i class="material-icons ">close</i>
+            </div>
+          </form>
+
+      </li>
+        <li><a href="#" class="">How it works</a></li>
+        <li><a href="/trips/" class="">Trips</a></li>
+
+        <li class="divider"></li>
+        <li>
+
+          <a href="/profile/{{user.usuario.id}}">View profile</a>
+        </li>
+        <li>
+          <a href="/settings/">Settings</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="/logout/">log out</a>
+        </li>
+
+
+        {%else%}
+        <li><a href="#" class="">How it works</a></li>
+        <li><a href="/trips/" class="">Trips</a></li>
+        <li class="">
+
+          <form action="{% url 'trips.views.Search'%}" method="get">
+            {% csrf_token %}
+            <div class="input-field">
+              <input id="search-query" name="search-query" placeholder="search"type="search" required>
+              <label for="search" name="action"><i class="material-icons grey-text">search</i></label>
+              <i class="material-icons ">close</i>
+            </div>
+          </form>
+
+      </li>
+        <li><a href="/signup/" class="">Sign up</a></li>
+        <li><a href="#loginModal" class="">Log in</a></li>
+        <hr>
+        
+
+
+        {%endif%}
+        
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="nav-mobile" class="button-collapse "><i class="material-icons ">menu</i></a>
+
     </div>
   </nav>
+
   </div>
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
