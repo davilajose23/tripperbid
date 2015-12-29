@@ -70,9 +70,9 @@
                       <h5>{{o.first_name}} {{o.last_name}}</h5>
                       {%if not o.follower == user.usuario%}
 
-                      <a href="/follow/{{o.follower.id}}"class="waves-effect    blue  z-depth-1 white-text btn">Follow</a>
+                      <a href="/follow/{{o.id}}"class="waves-effect    blue  z-depth-1 white-text btn">Follow</a>
                       {%endif%}
-                      <a href ="/profile/{{o.follower.id}}"class="waves-effect    white  z-depth-1 black-text btn">Profile</a>
+                      <a href ="/profile/{{o.id}}"class="waves-effect    white  z-depth-1 black-text btn">Profile</a>
 
                     </div>
                   </div>
