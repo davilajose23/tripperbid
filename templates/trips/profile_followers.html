@@ -51,7 +51,8 @@
                         </div>
                         <div class="col s10">
 
-                          <h5>{{rel.follower}}</h5>
+                          <h5>{{rel.follower.first_name}}</h5>
+
                           {%if not rel.follower == user.usuario%}
 
                           <a href="/follow/{{rel.follower.id}}"class="waves-effect    blue  z-depth-1 white-text btn">Follow</a>
