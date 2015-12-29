@@ -1,0 +1,214 @@
+{% extends "dashboard.html" %}
+
+{% block main %}
+
+  
+<div class="row">
+
+
+    <div class="col s12 l7 card blue white-text center">
+      <h5><span>Users registed: {{total}}</span></h5>
+      <canvas id="canvas" ></canvas>
+      
+    </div>
+
+    <div class="col s12 l4  center">
+      
+      <div class="card blue-grey white-text ">
+        <div class="card-content">
+          <div class="card-title">
+          <i class="material-icons">supervisor_account</i>new users today:
+          <br>
+          <b>{{usuarios_hoy}}</b>
+          <br>
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="col s12 l4  center">
+      
+      <div class="card blue-grey darken-3 white-text ">
+        <div class="card-content">
+          <div class="card-title">
+          
+          Last user registed:<b> <a href="/profile/{{last.id}}">{{last.first_name}} {{last.last_name}}</a></b>
+          <br>
+
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+    
+
+    
+
+    <div class="col s12   center">
+      
+      <div class="card   light-blue white-text">
+        <div class="card-content">
+          <div class="card-title">
+            <span>Last Winners</span>
+          <br>
+          </div>
+          
+          <table class="borded">
+            <thead>
+              <tr>
+                  <th data-field="id">Name</th>
+                  <th data-field="price">Subasta</th>
+                  <th data-field="price">Date</th>
+                  <th data-field="price">Cuantity</th>
+                  <th data-field="price">Cobrado</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              
+                {%for g in ganadores%}
+                <tr>
+                  <td>{{g.usuario.first_name}} {{g.usuario.last_name}}</td>
+
+                  <td>{{g.subasta.nombre}}</td>
+                  <td>{{g.date}}</td>
+                  <td>{{g.cantidad}}</td>
+                  {%if g.cobrado%}
+                  <td>Yes</td>
+                  {%else%}
+                  <td>No</td>
+                  {%endif%}
+                </tr>
+                {%endfor%}
+
+              
+              
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    
+    </div>
+
+    <div class="col s12 l7 card orange white-text center">
+      <h5><span>Donations</span></h5>
+      <canvas id="canvas1" ></canvas>
+      
+    </div>
+    <div class="col s12 l4  center">
+      
+      <div class="card green white-text ">
+        <div class="card-content">
+          <div class="card-title">
+          $ Total Donations:
+          <br>
+          <b>${{total_donaciones}}</b>
+          <br>
+          last month: ${{last_month_donaciones}}
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+    <div class="col s12 l4  center">
+      
+      <div class="card teal white-text ">
+        <div class="card-content">
+          <div class="card-title">
+          <i class="material-icons">trending_up</i>Today Profit:
+          <br>
+          <b>$100</b>
+          <br>
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">add</i>
+    </a>
+    <ul>
+      <li><a href="/signup"class="btn-floating blue"><i class="material-icons">account_circle</i></a></li>
+      
+      <li><a class="btn-floating green"><i class="material-icons">assignment</i></a></li>
+      
+    </ul>
+  </div>
+
+  <script>
+  
+  var data = {
+      labels: ["January", "February", "March", "April", "May", "June", "July","Agosto","septiembre","octubre","noviembre","diciembre","January"],
+      datasets: [
+          {
+              label: "My First dataset",
+              fillColor: "#90caf9",
+              strokeColor: "#fff",
+              pointColor: "#2196f3",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: [
+              {% for i in fechas%}
+                {{i}},
+
+              {%endfor%}
+              ]
+          },
+          
+      ]
+  };
+ var data1 = {
+      labels: ["January", "February", "March", "April", "May", "June", "July","Agosto","septiembre","octubre","noviembre","diciembre","January"],
+      datasets: [
+          {
+              label: "My First dataset",
+              fillColor: "#ffcc80",
+              strokeColor: "#fff",
+              pointColor: "#ef6c00",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: [{% for i in donaciones%}{{i}},
+              {%endfor%}]
+          },
+          
+      ]
+  };
+
+  
+
+  window.onload = function(){
+    var ctx = document.getElementById("canvas").getContext("2d");
+    
+    window.myBar = new Chart(ctx).Line(data, {
+      scaleFontColor: "#ffffff" ,
+      scaleShowVerticalLines: false,
+      scaleGridLineColor : "#fafafa",
+      responsive : true
+    });
+    var ctx1 = document.getElementById("canvas1").getContext("2d");
+    
+    window.myBar1 = new Chart(ctx1).Line(data1, {
+      scaleFontColor: "#ffffff" ,
+      scaleShowVerticalLines: false,
+      scaleGridLineColor : "#fafafa",
+      responsive : true
+    });
+    
+  }
+
+  </script>
+</div>
+
+
+
+{% endblock%}

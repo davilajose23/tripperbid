@@ -1,0 +1,293 @@
+{% extends "dashboard.html" %}
+
+{% block main %}
+
+{%load staticfiles%}
+<div class="row">
+
+  {%if subasta%}
+    <div class="col s12 ">
+      <div class="card ">
+        <div class="card-image">
+          <img src= "{% static 'trips/img/proyectos/seaturtle2.png'%}">
+          <span class="card-title">{{subasta.nombre}}</span>
+        </div>
+        <div class="card-content">
+
+          <div class="row">
+
+            <div class="col s12 m3 center">
+              <!-- Promo Content 1 goes here -->
+              <h5>{{usuariopiramide| length}}</h5>
+              <p>trippers in this found</p>
+            </div>
+            <div class="col s12  m3 center">
+              <!-- Promo Content 2 goes here -->
+              <h5>${{subasta.recaudado}}</h5>
+              <p>Money collected by this found</p>
+            </div>
+            <div class="col s12 m3  center">
+              <!-- Promo Content 3 goes here -->
+              <h5>${{subasta.precio}}</h5>
+              <p>Entry donation</p>
+            </div>
+            <div class="col s12 m3  center">
+              <!-- Promo Content 3 goes here -->
+              <h5>$100</h5>
+              <p>tripper return</p>
+            </div>
+
+          </div>
+
+
+
+        </div>
+        <div class="card-action">
+        <a href="#">Learn more</a>
+        
+        <a class="waves-effect white-text right waves-light btn modal-trigger red" href="/login/">Delete
+           <i class="material-icons left">close</i></a>
+
+        <a class="waves-effect white-text right waves-light btn modal-trigger green" href="/login/">Edit
+           <i class="material-icons left"></i></a>
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col s12 l7 card orange white-text center">
+      <h5><span>Donations</span></h5>
+      <canvas id="canvas1" ></canvas>
+      
+    </div>
+    <div class="col s12 l4  center">
+      
+      <div class="card blue-grey darken-3 white-text ">
+        <div class="card-content">
+          <div class="card-title">
+          {%if last%}
+          Last donation:
+          <br><b> <a href="/profile/{{last.id}}">{{last.usuario.first_name}} {{last.usuario.last_name}}</a></b>
+          <br>
+          {%else%}
+            <br>
+            There are no donations yet
+            <br>
+          {%endif%}
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+
+  <div class="col s12 l4  center">
+      
+      <div class="card green white-text ">
+        <div class="card-content">
+          <div class="card-title">
+            There are:
+            <br>{{piramides | length}}  piramides
+            <br>
+            <br>
+          </div>
+
+        </div>
+      </div>
+    
+  </div>
+
+  <div class="col s12 l4  center">
+      
+      <div class="card lime white-text ">
+        <div class="card-content">
+          <div class="card-title">
+            Each piramide has :
+            <br>${% widthratio subasta.recaudado piramides|length 1 %} of donations in average
+          </div>
+
+        </div>
+      </div>
+    
+  </div>
+
+  {%if piramides%}
+  
+
+  {%for piramide in piramides%}
+    <div class="col s12 m6 ">
+
+      <div class="card">
+
+
+        <div class="card-content">
+          <div class="card-title">
+            <h5 class="center">
+            Piramide with {{piramide.inscritos}} donations</h5>
+          </div>
+          <table class="bordered">
+            <thead>
+              <tr>
+              <td>Level</td>
+              <td>User</td>
+              <td>Follow</td>
+              <td>Date</td>
+              </tr>
+            </thead>
+
+            <tbody>
+
+            
+            {%for up in usuariopiramide%}
+
+              {%if up.piramide == piramide%}
+
+                 <tr>
+
+                   <td>{{up.nivel}}</td>
+                   <td>
+                     <a href="/profile/{{up.usuario.id}}" class=" tooltipped" data-position="top" data-delay="50" data-tooltip="{{up.usuario.first_name}} {{up.usuario.last_name}}">
+                       <div class="chip">
+                         <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                         {{up.usuario.first_name}}
+                       </div>
+                      </a>
+                      <br>
+                   </td>
+                   <td><a href="/follow/{{up.usuario.id}}">follow</a></td>
+                   <td>{{up.date}}</td>
+
+                  </tr>
+
+              {%endif%}
+
+
+              
+
+
+
+
+          {%endfor%}
+
+
+                </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    {%endfor%}
+
+    
+
+    {%endif%}
+
+
+    {%if ganadores%}
+    <div class="col s12   center">
+      
+      <div class="card   black-text">
+        <div class="card-content">
+          <div class="card-title">
+            <span>Winners in this trip</span>
+          <br>
+          </div>
+          
+          <table class="borded">
+            <thead>
+              <tr>
+                  <th data-field="id">Name</th>
+                  <th data-field="price">Date</th>
+                  <th data-field="price">Cuantity</th>
+                  <th data-field="price">Cobrado</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              
+                {%for g in ganadores%}
+                <tr>
+                  <td><a href="/profile/{{up.usuario.id}}" class=" tooltipped" data-position="top" data-delay="50" data-tooltip="{{g.usuario.first_name}} {{g.usuario.last_name}}">
+                  
+                  <div class="chip">
+                    <img src="{% static 'trips/img/foto.jpg'%}" alt="Contact Person">
+                          {{g.usuario.first_name}} 
+                  </div>
+                  </a>
+
+                  </td>
+                  <td>{{g.date}}</td>
+                  <td>{{g.cantidad}}</td>
+                  {%if g.cobrado%}
+                  <td>Yes</td>
+                  {%else%}
+                  <td>No</td>
+                  {%endif%}
+                </tr>
+                {%endfor%}
+
+              
+              
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    
+    </div>
+
+    {%else%}
+      <div class="col s12 m4 ">
+
+        <div class="card blue white-text">
+          <br>
+          <h5 class="center">There are no Winners yet</h5>
+          <br>
+          <br>
+        </div>
+      </div>
+
+    {%endif%}
+
+
+    {%endif%}
+
+
+</div>
+  <script>
+   var data1 = {
+      labels: ["January", "February", "March", "April", "May", "June", "July","Agosto","septiembre","octubre","noviembre","diciembre","January"],
+      datasets: [
+          {
+              label: "My First dataset",
+              fillColor: "#ffcc80",
+              strokeColor: "#fff",
+              pointColor: "#ef6c00",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(220,220,220,1)",
+              data: [{% for i in donaciones%}{{i}},
+              {%endfor%}]
+          },
+          
+      ]
+  };
+
+  window.onload = function(){
+    
+    var ctx1 = document.getElementById("canvas1").getContext("2d");
+    
+    window.myBar1 = new Chart(ctx1).Line(data1, {
+      scaleFontColor: "#ffffff" ,
+      scaleShowVerticalLines: false,
+      scaleGridLineColor : "#fafafa",
+      responsive : true
+    });
+    
+  }
+  </script>
+
+
+{% endblock%}

@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>tripperbid</title>
+{% extends "base.html" %}
 
-  <!-- CSS  -->
+{% block navbar %}
+
   {% load staticfiles %}
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="{% static 'trips/css/materialize.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="{% static 'trips/css/style.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
 
-
-<body class="grey lighten-3"  >
-
-  
 <div class="navbar-fixed">
 
   <nav class=" white" role="navigation">
@@ -31,9 +19,6 @@
 
         <a href="/profile/{{user.usuario.id}}">Profile</a></li>
         <li><a href="/settings/">Settings</a></li>
-        {%if user.is_staff%}
-        <li><a href="/dashboard/">Dashboard</a></li>
-        {%endif%}
         <li class="divider"></li>
         <li><a href="/logout/">log out</a></li>
       </ul>
@@ -161,92 +146,4 @@
     </div>
   </nav>
   </div>
-
-
-
-  {% block content %}
-
-
-  {% endblock %}
-
-
-
-
-
-  <div id="loginModal" class="modal">
-
-    <div class="modal-content">
-
-      <br>
-        <div class="row ">
-          <div class="col s2">
-          <br>
-          </div>
-          <form class="col s8 " action="{% url 'trips.views.Login'%}" method="post">
-
-          {% csrf_token %}
-          <div class="row">
-
-            <div class="center">
-              <img class="circle responsive-img" src="{% static 'trips/img/foto.jpg'%}">
-            </div>
-            <div class="input-field col s12">
-              <input id="icon_prefix" type="text" required name="username" class="validate">
-              <label for="icon_prefix">User</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="icon_prefix" required name="password"type="password" class="validate">
-              <label for="icon_prefix">Password</label>
-            </div>
-            <div class="input-field center col s12">
-              <button class="btn waves-effect waves-light" type="submit" name="action">log in
-              <i class="material-icons right">send</i>
-              </button>
-            </div>
-            </div>
-          </form>
-        </div>
-
-    </div>
-
-  </div>
- <!-- <footer class="page-footer grey lighten-5">
-    <div class="container">
-      <div class="row">
-        <div class="col l3 s4">
-          <img class="responsive-img" src="{% static 'home/img/tripperbid.png'%}" alt="Unsplashedound img 3">
-        </div>
-        <div class="col l6 s12">
-          <h5 class="">Company Bio</h5>
-          <p class="text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
-  </footer>
--->
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="{% static 'trips/js/materialize.js'%}"></script>
-  <script src="{% static 'trips/js/init.js'%}"></script>
-
-  </body>
-
-</html>
+{% endblock%}

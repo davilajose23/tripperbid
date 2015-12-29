@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>tripperbid</title>
+
+  <!-- CSS  -->
+  {% load staticfiles %}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'trips/css/materialize.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'trips/css/style.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <script src="{% static 'trips/js/Chart.js'%}"></script>
+</head>
+
+<div>
+  
+
+
+</div>
+<body class="grey lighten-3"  >
+
+
+  
+  <div class="navbar-fixed">
+
+    <nav class="white" role="navigation">
+      
+      <div class="nav-wrapper" >
+
+
+        <div class="hide-on-med-and-down"style="margin-left: 350px;">
+
+           <a id="logo-container" href="/" class="brand-logo "> tripperbid </a>
+
+          {% if user.is_authenticated %}
+          <ul id="dropdown1" class="dropdown-content">
+            <li>
+
+            <a href="/profile/{{user.usuario.id}}">Profile</a></li>
+            <li><a href="/settings/">Settings</a></li>
+            <li class="divider"></li>
+            <li><a href="/logout/">log out</a></li>
+          </ul>
+          {%endif%}
+          <ul class="right hide-on-med-and-down" >
+            <li><a href="#" class="">How it works</a></li>
+            <li><a href="/trips/" class="">Trips</a></li>
+            {% if user.is_authenticated %}
+
+
+            <img src="{{user.usuario.pp.url}}" alt="" class="circle responsive-img brand-logo" style="width:50px; margin:10px;:hover {background: yellow}"> <!-- notice the "circle" class -->
+
+            <li>
+            <br>
+            </li>
+            <li style="margin-left:70px;">
+
+
+
+            <a class="dropdown-button waves-effect waves-teal" href="#!" data-beloworigin="true" data-alignment="right" data-activates="dropdown1">{{user.usuario.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+
+
+            </li>
+            {%else%}
+            <li><a href="/signup/" class="">Sign up</a></li>
+            <li><a href="#loginModal" class="modal-trigger">Log in</a></li>
+
+            {%endif%}
+
+
+          </ul>
+          <ul class="right hide-on-med-and-down">
+
+              <form action="{% url 'trips.views.Search'%}" method="get">
+                {% csrf_token %}
+                <div class="input-field">
+                  <input id="search-query" name="search-query" placeholder="search"type="search" required>
+                  <label for="search" name="action"><i class="material-icons grey-text">search</i></label>
+                  <i class="material-icons ">close</i>
+                </div>
+              </form>
+
+          </ul>
+        </div>
+        <!-- SIDE NAV FIXED *********************-->
+
+        <ul class="side-nav  " id="nav-mobile" >
+
+             
+          <div class="row">
+
+            <div class="card">
+              <div class="col card-image s12">   
+                    <img src="{% static 'trips/img/profile/background.jpg'%}" class="responsive-img">
+                    <span class="card-title">Admin Panel</span>
+              </div>
+            </div>
+
+            
+          </div>
+         
+          
+          <li><a href="#" class="">How it works</a></li>
+          <li><a href="/trips/" class="">Trips</a></li>
+
+          <li class="divider"></li>
+          <li>
+
+            <a href="/profile/{{user.usuario.id}}">View profile</a>
+          </li>
+          <li>
+            <a href="/settings/">Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="/logout/">log out</a>
+          </li>
+
+
+         
+          
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse "><i class="material-icons ">menu</i></a>
+         <a id="logo-container" data-activates="nav-mobile"  href="/" class="brand-logo "> tripperbid </a>
+      </div>
+    </nav>
+    </div>
+
+    <div class="row">
+
+      <div class="col s3 side-nav fixed"style="padding: 0px;">
+        <!-- Grey navigation panel -->
+        <ul class="collapsible" style="margin: 0px;" >
+
+             
+          <div class="row">
+            <div class="card" >
+              <div class="col card-image s12">   
+                    <img src="{% static 'trips/img/profile/background.jpg'%}" class="responsive-img">
+                    <span class="card-title">Admin Panel</span>
+              </div>
+            </div>
+          </div>
+ 
+          <li>
+          
+            <div class="collapsible-header"> <i class="material-icons">dashboard</i><a href="/dashboard">Dashboard </a></div>
+            <div class="collapsible-body">
+
+            </div>
+          
+          </li>
+
+
+          <li>
+            <div class="collapsible-header"> <i class="material-icons">account_circle</i>Users</div>
+            <div class="collapsible-body">
+              <ol>
+                <li><a href="/dashboard/users" class=""> All</a></li>
+                <li><a href="/dashboard/winners" class=""> Ganadores</a></li>
+
+              </ol>
+
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"> <i class="material-icons">assignment</i>Subastas</div>
+            <div class="collapsible-body">
+              <ol>
+                <li><a href="/dashboard/trips" class=""> Activas</a></li>
+                
+
+              </ol>
+
+            </div>
+          </li>
+                
+              
+          
+          <li class="divider"></li>
+
+        
+         
+          
+        </ul>
+
+      </div>
+
+      <div class="col s12  l9 right">
+        <!-- Teal page content  -->
+
+        {% block main %}
+
+
+        {% endblock %}
+
+      </div>
+
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{% static 'trips/js/materialize.js'%}"></script>
+    <script src="{% static 'trips/js/init.js'%}"></script>
+
+    </body>
+
+</html>

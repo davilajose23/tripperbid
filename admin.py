@@ -28,9 +28,23 @@ class GanadorAdmin(admin.ModelAdmin):
     usuario_first_name.admin_order_field = 'usuario__first_name'
     usuario_last_name.admin_order_field = 'usuario__last_name'
 
+class UsuarioPiramideAdmin(admin.ModelAdmin):
+
+    list_display = ('usuario','subasta','date','cantidad','finished','nivel')
+
+
+    def subasta(self,obj):
+        return obj.piramide.subasta
+
+    def cantidad(self,obj):
+        return obj.piramide.subasta.precio
+
+    subasta.admin_order_field = 'piramide__subasta'
+    subasta.admin_order_field = 'piramide__subasta_precio'
+
 admin.site.register(Subasta)
 admin.site.register(Usuario,UsuarioAdmin)
 admin.site.register(Piramide)
-admin.site.register(UsuarioPiramide)
+admin.site.register(UsuarioPiramide,UsuarioPiramideAdmin)
 admin.site.register(Follows)
 admin.site.register(Ganador,GanadorAdmin)

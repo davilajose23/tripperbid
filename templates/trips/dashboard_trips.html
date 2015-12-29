@@ -1,0 +1,54 @@
+{% extends "dashboard.html" %}
+
+{% block main %}
+
+{%load staticfiles%}
+<div class="row">
+
+
+  {%if cantidad == 1%}
+    <h5>There are only {{cantidad}} trip</i></h5>
+  {%elif cantidad == 0%}
+     <h5>There are no trips yet</i></h5>
+  {%else%}
+    <h5>There are only {{cantidad}} trips</i></h5>
+
+  {%endif%}
+
+
+  
+  {%if subastas%}
+ {%for sub in subastas%}
+
+   <div class="col s12 m6 l4  " >
+     <div class="card hoverable">
+       <div class="card-image">
+         <img src="{% static 'trips/img/proyectos/seaturtle.jpg'%}">
+         <span class="new badge red"></span>
+         <span class="card-title">{{sub.nombre}}</span>
+
+       </div>
+       <div class="card-content">
+         <p>{{sub.descripcion}}</p>
+         <p>Precio: {{sub.precio}}</p>
+       </div>
+       <div class="card-action">
+         <a href="/dashboard/trips/{{sub.id}}">Ver mas...</a>
+       </div>
+     </div>
+   </div>
+
+   {%endfor%}
+   {%endif%}
+
+   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a href="#" class="btn-floating btn-large red">
+      <i class="large material-icons">add</i>
+    </a>
+    
+  </div>
+</div>
+
+
+
+{% endblock%}

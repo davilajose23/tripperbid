@@ -42,6 +42,7 @@ class Subasta(models.Model):
 	descripcion = models.CharField(max_length=200)
 	precio = models.IntegerField(default=10)
 	pago = models.IntegerField(default=0)
+	recaudado = models.IntegerField(default=0)
 	def __str__(self):              # __unicode__ on Python 2
 		return self.nombre
 

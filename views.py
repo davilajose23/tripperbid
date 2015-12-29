@@ -10,11 +10,13 @@ from django.contrib import messages
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 import unicodedata
+import datetime
 
 # Create your views here.
 from .forms import SettingsForm_gen
 from .models import Usuario, Subasta, Piramide, UsuarioPiramide, Follows, Ganador
 from .utils import generic_search
+
 
 
 def Index(request):
@@ -55,7 +57,9 @@ def Registro(request):
 
     if request.method == "POST":
         first_name = request.POST.get('first_name')
+        first_name.capitalize()
         last_name = request.POST['last_name']
+        last_name.capitalize()
         email = request.POST['email']
         password = request.POST['password']
         date_birth = request.POST['birth']
@@ -146,6 +150,8 @@ def inscribir_subasta(request,sub_id, p_id ):
 		up.save()
 		piramide.inscritos += 1
 		piramide.save()
+		piramide.subasta.recaudado += piramide.subasta.precio
+		piramide.subasta.save()
 
 	#checa si ya se lleno la piramide y la divide
 	pir = UsuarioPiramide.objects.filter(piramide=piramide)
@@ -403,3 +409,100 @@ def Settings_prof(request):
 		return render(request,'trips/settings.html',{'user':request.user})
 	else:
 		return HttpResponseRedirect('/trips/')
+
+def Dashboard(request):
+
+	if request.user.is_authenticated() and request.user.is_staff:
+
+		fechas=[0,0,0,0,0,0,0,0,0,0,0,0]
+		donaciones=[0,0,0,0,0,0,0,0,0,0,0,0]
+
+		#usuarios
+		fechas_usuario = Usuario.objects.order_by('-date')
+		for fecha in fechas_usuario:
+			fechas[fecha.date.month-1] += 1
+
+		hoy = datetime.datetime.today()
+		usuarios_hoy = Usuario.objects.filter(date__year=hoy.year,date__month=hoy.month,date__day=hoy.day)
+		
+		#Donaciones
+		donaciones_usuario = UsuarioPiramide.objects.order_by('date')
+		for donacion in donaciones_usuario:
+			donaciones[donacion.date.month-1] += donacion.piramide.subasta.precio
+
+
+		ganadores = Ganador.objects.order_by('-date')[:5]
+		for gana in ganadores:
+			donaciones[gana.date.month-1] += gana.subasta.precio
+
+		total_donaciones = 0
+		for i in donaciones:
+			total_donaciones += i
+
+		
+
+		return render(request,'trips/dashboard_index.html',{'fechas':fechas,'last':fechas_usuario[0],
+			'total':fechas_usuario.count(),'ganadores':ganadores,'donaciones':donaciones,
+			'total_donaciones':total_donaciones,'last_month_donaciones':donaciones[11],'usuarios_hoy':usuarios_hoy.count()})
+	else:
+		return HttpResponseRedirect('/trips/')
+
+def Dashboard_users(request):
+
+	if request.user.is_authenticated() and request.user.is_staff:
+
+		users = Usuario.objects.order_by('first_name')
+		cantidad = users.count()
+		return render(request,'trips/dashboard_users.html',{'users':users,'cantidad':cantidad})
+	else:
+		return HttpResponseRedirect('/trips/')
+
+def Dashboard_winners(request):
+
+	if request.user.is_authenticated() and request.user.is_staff:
+
+		ganadores = Ganador.objects.order_by('-date')
+		
+		return render(request,'trips/dashboard_winners.html',{'ganadores':ganadores})
+	else:
+		return HttpResponseRedirect('/trips/')
+
+def Dashboard_trips(request):
+
+	if request.user.is_authenticated() and request.user.is_staff:
+
+		subastas = Subasta.objects.order_by('nombre')
+		
+		return render(request,'trips/dashboard_trips.html',{'subastas':subastas,'cantidad':subastas.count()})
+	else:
+		return HttpResponseRedirect('/trips/')
+
+def Dashboard_trips_details(request,sub_id):
+
+	if request.user.is_authenticated() and request.user.is_staff:
+
+		subasta = Subasta.objects.get(pk=sub_id)
+		ganadores = Ganador.objects.filter(subasta__id=sub_id).order_by('-date')
+		
+		#Donaciones
+
+		donaciones=[0,0,0,0,0,0,0,0,0,0,0,0]
+
+		donaciones_usuario = UsuarioPiramide.objects.filter(piramide__subasta=subasta).order_by('date')
+		for donacion in donaciones_usuario:
+			donaciones[donacion.date.month-1] += donacion.piramide.subasta.precio
+
+		for gana in ganadores:
+			donaciones[gana.date.month-1] += gana.subasta.precio
+
+		piramides = Piramide.objects.filter(subasta__id=sub_id)
+
+		if donaciones_usuario:
+			return render(request,'trips/dashboard_trips_details.html',{'subasta':subasta,'ganadores':ganadores,
+			'donaciones':donaciones,'last':donaciones_usuario[donaciones_usuario.count()-1],'usuariopiramide':donaciones_usuario,'piramides':piramides})
+
+		return render(request,'trips/dashboard_trips_details.html',{'subasta':subasta,'ganadores':ganadores,
+			'donaciones':donaciones,'usuariopiramide':donaciones_usuario,'piramides':piramides})
+	else:
+		return HttpResponseRedirect('/trips/')
+
