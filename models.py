@@ -20,6 +20,11 @@ def user_directory_path(instance, filename):
 	return ruta
 
 class Usuario(models.Model):
+	GENDER_CHOICE = (
+        ('F', 'female'),
+        ('M', 'male'),
+        ('O', 'other'),
+    )
 	user = models.OneToOneField(User)
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
@@ -27,6 +32,7 @@ class Usuario(models.Model):
 	email = models.EmailField(max_length=254,default='example@example.com',unique=True)
 	date = models.DateTimeField('register date', default=datetime.datetime.now())
 	pp = models.ImageField(upload_to = user_directory_path,storage=OverwriteStorage(), default = 'photos/foto.jpg')
+	gender = models.CharField(max_length=1, choices=GENDER_CHOICE, default='O')
 	def __str__(self):              # __unicode__ on Python 2
 		return self.first_name+" "+self.last_name
 

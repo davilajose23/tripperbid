@@ -8,8 +8,13 @@
   <!-- CSS  -->
   {% load staticfiles %}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="{% static 'trips/css/materialize.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
   <link href="{% static 'trips/css/style.css'%}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+
 </head>
 
 
@@ -53,7 +58,7 @@
 
 
 
-        <a class="dropdown-button waves-effect waves-teal" href="#!" data-beloworigin="true" data-alignment="right" data-activates="dropdown1">{{user.usuario.first_name}}<i class="material-icons right">arrow_drop_down</i></a>
+        <a class="dropdown-button waves-effect waves-teal" href="#!" data-beloworigin="true" data-alignment="right" data-activates="dropdown1"><span class="truncate" style="display:block;white-space:nowrap;overflow-x:hidden;overflow-y:hdden;text-overflow:ellipsis;max-width:130px">{{user.usuario.first_name}}<i class="material-icons left">arrow_drop_down</i></span></a>
 
 
         </li>
@@ -93,11 +98,11 @@
           <div style="position:absolute;top:15px;">
 
             <div class="col s4">
-              <img src="{{user.usuario.pp.url}}" alt="" class="circle responsive-img valign " style="margin: 10px;"> <!-- notice the "circle" class -->
+              <img src="{{user.usuario.pp.url}}" alt="" class="circle responsive-img  " style="margin: 10px; "> <!-- notice the "circle" class -->
             </div>
-            <div class="col s8 valign white-text">
-              <h5 class="" >
-                  <br>{{user.usuario.first_name}} {{user.usuario.last_name}}</h5>
+            <div class="col s8 valign white-text truncate">
+              <h5  style="display:block;white-space:nowrap;overflow-x:hidden;overflow-y:hdden;text-overflow:ellipsis;max-width:150px" >
+                  {{user.usuario.first_name}} </h5>
             </div>
           </div>
         </div>

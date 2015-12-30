@@ -22,7 +22,7 @@
             <figure style="top:10px; left:20px; position:absolute; width: 100px; margin:0;">
 
               {%if request.user.is_authenticated%}
-              <img class="circle responsive-img hide-on-small-and-down z-depth-3"  src="{{user.usuario.pp.url}}"
+              <img class="circle responsive-img hide-on-small-and-down z-depth-3"  src="{{usuario.pp.url}}"
               >
               {%else%}
               <img class="circle responsive-img hide-on-small-and-down z-depth-3"  src="{% static 'trips/img/foto.jpg'%}"

@@ -7,12 +7,15 @@
 
 
   {%if cantidad == 1%}
-    <h5>Only {{cantidad}} user</i></h5>
+    <h5 class="center">There is {{cantidad}} user</i></h5>
   {%else%}
-    <h5>Only {{cantidad}} users</i></h5>
+    <h5 class="center">There are {{cantidad}} users</i></h5>
 
   {%endif%}
 
+  <a href="#" class="btn green right">Export to Excel</a>
+  <br>
+  <br>
   {%if users%}
   {%for u in users%}
   
@@ -24,9 +27,9 @@
           </div>
           <div class="col s9">
 
-            <h5>{{u.first_name}} {{u.last_name}}</h5>
+            <h5 class="truncate">{{u.first_name}} {{u.last_name}}</h5>
             
-            <a href ="/profile/{{rel.follower.id}}"class="waves-effect    white  z-depth-1 black-text btn">View profile</a>
+            <a href ="/profile/{{u.id}}"class="waves-effect    white  z-depth-1 black-text btn">View profile</a>
 
           </div>
         </div>

@@ -5,6 +5,7 @@
   
 <div class="row">
 
+     <h3 class="center"><span>Dashboard</span></h3>
 
     <div class="col s12 l7 card blue white-text center">
       <h5><span>Users registed: {{total}}</span></h5>
@@ -49,7 +50,7 @@
 
     <div class="col s12   center">
       
-      <div class="card   light-blue white-text">
+      <div class="card cyan darken-4 white-text">
         <div class="card-content">
           <div class="card-title">
             <span>Last Winners</span>
@@ -71,9 +72,9 @@
               
                 {%for g in ganadores%}
                 <tr>
-                  <td>{{g.usuario.first_name}} {{g.usuario.last_name}}</td>
+                  <td> <a href="/profile/{{g.usuario.id}}">{{g.usuario.first_name}} {{g.usuario.last_name}}</a></td>
 
-                  <td>{{g.subasta.nombre}}</td>
+                  <td><a href="/details/{{g.subasta.id}}">{{g.subasta.nombre}}</a></td>
                   <td>{{g.date}}</td>
                   <td>{{g.cantidad}}</td>
                   {%if g.cobrado%}
@@ -131,6 +132,41 @@
     
     </div>
 
+    <div class="col s12 l4  center">
+      
+      <div class="card blue-grey darken-3 white-text  ">
+        <div class="card-content">
+          <div class="card-title">
+          Last donation of 
+          <br>
+          <b><a href="/profile/{{last_donacion.usuario.id}}">{{last_donacion.usuario}}</a></b>
+          <br>
+          in the subasta 
+          <b><a href="/details/{{last_donacion.piramide.subasta.id}}">{{last_donacion.piramide.subasta.nombre}}</a></b>
+          </div>
+
+        </div>
+      </div>
+    
+    </div>
+    <div class="col s12 l7 card blue-grey lighten-2 white-text center">
+
+      <h5 class="card-title"><span>Gender</span></h5>
+      <div class="row">
+
+        <div class="col s9">
+          <canvas id="canvas2" ></canvas>
+        </div>
+
+        <div class="col s3">
+
+          <h5 class="light-blue-text text-darken-3">Male: <b>{{male}}</b></h5><h5 class="green-text text-darken-3"> Female: <b>{{female}}</b> 
+       </h5> <h5 class="red-text text-darken-1">Other: <b >{{other}}</b></h5>
+
+       </div>
+      </div>
+    </div>
+
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large red">
       <i class="large material-icons">add</i>
@@ -184,7 +220,27 @@
       ]
   };
 
-  
+  var data2 = [
+    {
+        value: {{male}},
+        color:"#039be5",
+        highlight: "#0277bd",
+        label: "Male"
+    },
+    {
+        value: {{female}},
+        color: "#4caf50",
+        highlight: "#2e7d32",
+        label: "Female"
+    },
+    {
+        value: {{other}},
+        color: "#e53935",
+        highlight: "#c62828",
+        label: "Other"
+    }
+  ]
+
 
   window.onload = function(){
     var ctx = document.getElementById("canvas").getContext("2d");
@@ -198,6 +254,15 @@
     var ctx1 = document.getElementById("canvas1").getContext("2d");
     
     window.myBar1 = new Chart(ctx1).Line(data1, {
+      scaleFontColor: "#ffffff" ,
+      scaleShowVerticalLines: false,
+      scaleGridLineColor : "#fafafa",
+      responsive : true
+    });
+    
+    var ctx2 = document.getElementById("canvas2").getContext("2d");
+    
+    window.myBar2 = new Chart(ctx2).Pie(data2, {
       scaleFontColor: "#ffffff" ,
       scaleShowVerticalLines: false,
       scaleGridLineColor : "#fafafa",

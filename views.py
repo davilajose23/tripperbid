@@ -439,7 +439,18 @@ def Dashboard(request):
 		for i in donaciones:
 			total_donaciones += i
 
-		
+		male = Usuario.objects.filter(gender='M').count()
+		female = Usuario.objects.filter(gender='F').count()
+		other = Usuario.objects.filter(gender='O').count()
+
+		if donaciones_usuario:
+
+			return render(request,'trips/dashboard_index.html',{'fechas':fechas,'last':fechas_usuario[0],
+			'total':fechas_usuario.count(),'ganadores':ganadores,'donaciones':donaciones,
+			'total_donaciones':total_donaciones,'last_month_donaciones':donaciones[11],'usuarios_hoy':usuarios_hoy.count(),
+			'last_donacion': donaciones_usuario.last,'male':male,'female':female,'other':other})
+
+
 
 		return render(request,'trips/dashboard_index.html',{'fechas':fechas,'last':fechas_usuario[0],
 			'total':fechas_usuario.count(),'ganadores':ganadores,'donaciones':donaciones,

@@ -54,7 +54,8 @@
 
                 </div>
                 <div class="card-action">
-                <a href="#">Learn more</a>
+                  <a href="#">Learn more</a>
+
                 {%if user.is_authenticated%}
                   {%if participa%}
                   <a class="waves-effect btn white-text right waves-light "
@@ -66,6 +67,16 @@
                 {%else%}
                   <a class="waves-effect white-text right waves-light btn modal-trigger" href="/login/">Apply
                    <i class="material-icons right">send</i></a>
+                {%endif%}
+
+                {%if user.is_staff%}
+                  <a class="waves-effect white-text right waves-light btn modal-trigger green" href="/login/" style="margin-right: 10px;">Edit
+                   <i class="material-icons right"></i></a>
+
+                   <a class="waves-effect white-text right waves-light btn modal-trigger red " style="margin-right: 10px;" href="/login/">Delete
+                   <i class="material-icons right">close</i></a>
+
+
                 {%endif%}
 
                 </div>
